@@ -97,7 +97,7 @@ VueRouter.install = function (Vue) {
     },
     render() {
       let tag = this.tag || 'a'
-      return <tag on-click={this.handleOnClick}>{this.$slots.default}</tag>
+      return <tag style="color: blue" on-click={this.handleOnClick}>{this.$slots.default}</tag>
     }
   })
   Vue.component('router-view', {
