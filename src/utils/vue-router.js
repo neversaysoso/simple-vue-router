@@ -47,12 +47,12 @@ class VueRouter {
   }
 
   push(path) {
-    if(this.mode === 'hash') {
-      location.href = `#${path}`
-      console.log(location.hash)
-    } else{
-      location.href = path
-      console.log(location.pathname)
+    const _path = path || '/'
+    if (this.mode === 'hash') {
+      location.href = `#${_path}`
+    } else {
+      window.history.pushState(_path, null, _path)
+      this.history.current = _path
     }
   }
 }
@@ -87,11 +87,17 @@ VueRouter.install = function (Vue) {
   })
   Vue.component('router-link', {
     props: {
-      to: String
+      to: String,
+      tag: String
+    },
+    methods: {
+      handleOnClick() {
+        this._self._root._router.push(this.to)
+      }
     },
     render() {
-      let mode = this._self._root._router.mode
-      return <a href = {mode === 'hash' ? `#${this.to}` : this.to}>{this.$slots.default}</a>
+      let tag = this.tag || 'a'
+      return <tag on-click={this.handleOnClick}>{this.$slots.default}</tag>
     }
   })
   Vue.component('router-view', {
