@@ -65,8 +65,7 @@ VueRouter.install = function (Vue) {
         // 存在router属性 则为根组件
         this._root = this
         this._router = this.$options.router
-        Vue.util.defineReactive(this,
-          '_history', this._router.history)
+        Vue.util.defineReactive(this, '_history', this._router.history)
       } else {
         // 逐级向上传
         this._root = this.$parent._root
